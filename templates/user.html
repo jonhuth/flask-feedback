@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} show user profile {% endblock %}
+
+{% block content %}
+
+<h1>{{ user.username}}</h1>
+<div>
+    <p>Personal info</p>
+    <p>{{ user.first_name }}</p>
+    <p>{{ user.last_name }}</p>
+    <p>{{ user.email }}</p>
+</div>
+<a href="/logout"><button>logout</button></a>
+
+{% endblock %}
