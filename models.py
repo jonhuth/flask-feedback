@@ -21,6 +21,10 @@ class User(db.Model):
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
 
+    feedback = db.relationship('Feedback', backref="user",
+                               order_by="Feedback.id",
+                               cascade="all, delete-orphan")
+
     def __repr__(self):
         return f"<User:{self.username}>"
 
@@ -38,3 +42,17 @@ class User(db.Model):
         if u and bcrypt.check_password_hash(u.password, password):
             return u
         return False
+
+
+class Feedback(db.Model):
+    __tablename__ = "feedback"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    username = db.Column(db.String(20), db.ForeignKey("users.username"))
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def __repr__(self):
+        return f"<Feedback:{self.id} {self.title} {self.username}>"
+    

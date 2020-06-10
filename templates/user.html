@@ -10,7 +10,32 @@
     <p>{{ user.first_name }}</p>
     <p>{{ user.last_name }}</p>
     <p>{{ user.email }}</p>
+    <h3>Feedback</h3>
+    <uL>
+        {% if user.feedback %}
+        {% for feedback in user.feedback %}
+            <li>
+                <a href="/feedback/{{feedback.id}}/update">
+                    <p>{{ feedback.title }}</p>
+                </a>
+                <form>
+                    <button class="badge" 
+                    formmethod="POST"
+                    formaction="/feedback/{{feedback.id}}/delete">
+                    Delete
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+        {% else %}
+            <h5>No feedback yet.</h5>
+        {% endif %}
+    </uL>
+    <a class="btn btn-primary" href="/users/{{user.username}}/feedback/add">Add feedback</a>
 </div>
-<a href="/logout"><button>logout</button></a>
+<a class="btn btn-warning" href="/logout">logout</a>
+<form action="/users/{{user.username}}/delete" method="POST">
+    <button class="btn btn-danger">delete yourself</button>
+</form>
 
 {% endblock %}
