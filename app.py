@@ -20,6 +20,9 @@ def redirect_register():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+
+    if "username" in session:
+        return redirect(f"/users/{session['username']}")
     form = RegisterUserForm()
 
     if form.validate_on_submit():
@@ -44,6 +47,9 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginUserForm()
+
+    if "username" in session:
+        return redirect(f"/users/{session['username']}")
 
     if form.validate_on_submit():
         username = form.username.data
@@ -79,7 +85,7 @@ def show_feedback_form(username):
         if form.validate_on_submit():
             title = form.title.data
             content = form.content.data
-            new_feedback = Feedback(title=title, 
+            new_feedback = Feedback(title=title,
                                     content=content, username=username)
             db.session.add(new_feedback)
             db.session.commit()
