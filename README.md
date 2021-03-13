@@ -17,4 +17,5 @@ This is a web app built in Flask that allows users to sign up and log in to thei
 1. create virtual environment (venv) inside `backend` directory using `python3 -m venv venv`
 2. activate venv w/ `source venv/bin/activate`
 3. install dependencies w/ `pip install -r requirements.txt`
-4. run server w/ `flask run`
+4. setup pqsl database called `feedback` on machine the server will be running on (follow guide for your OS of choice)
+5. run server with `flask run`
